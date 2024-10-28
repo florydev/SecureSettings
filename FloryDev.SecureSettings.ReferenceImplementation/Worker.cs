@@ -23,6 +23,8 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                var password = Settings.Password.GetDecryptedValue();
+               
                 if (_logger.IsEnabled(LogLevel.Information))
                 {
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
