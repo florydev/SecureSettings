@@ -10,6 +10,6 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
     {
         public static string SectionName = "AppSettings";
         public string Username { get; set; }
-        public string Password { get; set; }
+        public EncryptedConfigSetting Password { get; set; }
     }
 }
