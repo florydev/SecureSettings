@@ -16,4 +16,10 @@
     <ProjectReference Include="..\FloryDev.SecureSettings.WindowsEncryption\FloryDev.SecureSettings.WindowsEncryption.csproj" />
     <ProjectReference Include="..\FloryDev.SecureSettings\FloryDev.SecureSettings.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

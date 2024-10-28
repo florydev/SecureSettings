@@ -7,9 +7,12 @@ using Microsoft.Extensions.Options;
 
 namespace FloryDev.SecureSettings.Extensions
 {
+    /// <summary>
+    /// This add an extension to the ServiceCollection for IWritableOptions. This code was taken from this post here: https://learn.microsoft.com/en-us/answers/questions/609232/how-to-save-the-updates-i-made-to-appsettings-conf
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
-        public const string DEFAULT_SETTINGS_FILE = "appsettingsx.json";
+        public const string DEFAULT_SETTINGS_FILE = "appsettings.json";
         public static void ConfigureWritable<T>(
         this IServiceCollection services,
         IConfigurationSection section,

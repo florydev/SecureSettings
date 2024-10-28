@@ -7,6 +7,14 @@ using Newtonsoft.Json.Linq;
 
 namespace FloryDev.SecureSettings.Writer
 {
+    /// <summary>
+    /// This adds a different type of Option pattern to the system to allow it ot be writable back to the file/section where the options 
+    /// comes from.    
+    /// This code was taken and then updated from this post here: https://learn.microsoft.com/en-us/answers/questions/609232/how-to-save-the-updates-i-made-to-appsettings-conf
+    /// </summary>
+
+    /// </summary>
+
     public class WritableOptions<T> : IWritableOptions<T> where T : class, new()
     {
         private readonly IHostEnvironment _environment;
