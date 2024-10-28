@@ -14,7 +14,7 @@ namespace FloryDev.SecureSettings.Extensions
         IConfigurationSection section,
         string file = "appsettings.json") where T : class, new()
         {
-            services.Configure<>.Configure<T>(section); // Fix: Use section.Bind to convert IConfigurationSection to Action<T>
+            services.Configure<T>(section); // Fix: Use section.Bind to convert IConfigurationSection to Action<T>
             services.AddTransient<IWritableOptions<T>>(provider =>
             {
                 var configuration = (IConfigurationRoot)provider.GetService<IConfiguration>();

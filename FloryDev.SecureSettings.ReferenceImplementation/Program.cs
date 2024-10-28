@@ -1,4 +1,5 @@
-﻿using FloryDev.SecureSettings.Interfaces;
+﻿using FloryDev.SecureSettings.Extensions;
+using FloryDev.SecureSettings.Interfaces;
 using FloryDev.SecureSettings.WindowsEncryption;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         {
             var builder = Host.CreateApplicationBuilder(args);
             builder.Services.Configure<WindowsEncryptionSettings>(builder.Configuration.GetSection(WindowsEncryptionSettings.SectionName));
-            builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(AppSettings.SectionName));
+            builder.Services.ConfigureWritable<AppSettings>(builder.Configuration.GetSection(AppSettings.SectionName), "appsettings.json");
             builder.Services.AddSingleton<IEncrypter, EncryptionProvider>();
             builder.Services.AddSingleton<IDecrypter, EncryptionProvider>();
 
