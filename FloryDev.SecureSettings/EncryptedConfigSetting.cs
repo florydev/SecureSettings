@@ -1,9 +1,14 @@
 ﻿using FloryDev.SecureSettings.Interfaces;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace FloryDev.SecureSettings
 {
+    [TypeConverter(typeof(EncryptedConfigSettingConverter))]
     public class EncryptedConfigSetting
     {
+        //As near as I can figure Dependency Injection doesn't work when using IOptions, something I need to figure out, right now I 
+        //am setting it statically but I do need a better answer
         //public EncryptedConfigSetting(IEncrypter encrypter, IDecrypter decrypter)
         //{
         //    Encrypter = encrypter;
