@@ -8,15 +8,13 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         private readonly ILogger<Worker> _logger;
         public AppSettings Settings;
 
-        public Worker(ILogger<Worker> logger, IEncryptionService encrypter, IDecryptionService decrypter, IWritableOptions<AppSettings> settings)
+        public Worker(ILogger<Worker> logger, SecureSettingsManager secureSettingsManager, IWritableOptions<AppSettings> settings)
         {
             _logger = logger;
-            EncryptedConfigSetting.Encrypter = encrypter;
-            EncryptedConfigSetting.Decrypter = decrypter;   
             Settings = settings.Value;
             settings.Update(opt => {
                 opt = Settings;
-            });  
+            });
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
