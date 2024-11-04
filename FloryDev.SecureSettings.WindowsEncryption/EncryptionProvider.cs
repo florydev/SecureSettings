@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 namespace FloryDev.SecureSettings.WindowsEncryption
 {
     [SupportedOSPlatform("windows")]
-    public class EncryptionProvider : IEncrypter, IDecrypter
+    public class EncryptionProvider : IEncryptDecryptService
     {
         private WindowsEncryptionSettings Settings { get; set; }
         public EncryptionProvider(IOptions<WindowsEncryptionSettings> settings)

@@ -18,8 +18,8 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
             var builder = Host.CreateApplicationBuilder(args);
             builder.Services.Configure<WindowsEncryptionSettings>(builder.Configuration.GetSection(WindowsEncryptionSettings.SectionName));
             builder.Services.ConfigureWritable<AppSettings>(builder.Configuration.GetSection(AppSettings.SectionName), "appsettings.json");
-            builder.Services.AddSingleton<IEncrypter, EncryptionProvider>();
-            builder.Services.AddSingleton<IDecrypter, EncryptionProvider>();
+            builder.Services.AddSingleton<IEncryptionService, EncryptionProvider>();
+            builder.Services.AddSingleton<IDecryptionService, EncryptionProvider>();
 
             builder.Services.AddHostedService<Worker>();
 

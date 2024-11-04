@@ -15,8 +15,8 @@ namespace FloryDev.SecureSettings
         //    Decrypter = decrypter;
         //}
 
-        public static IDecrypter Decrypter { get; set; }
-        public static IEncrypter Encrypter { get; set; }
+        public static IDecryptionService Decrypter { get; set; }
+        public static IEncryptionService Encrypter { get; set; }
 
         private string _value = string.Empty;
 
