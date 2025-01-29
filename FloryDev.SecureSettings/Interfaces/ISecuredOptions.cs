@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FloryDev.SecureSettings.Interfaces
 {
-    public interface IWritableOptions<out T> : IOptions<T> where T : class, new()
+    public interface ISecuredOptions<out T> : IOptions<T> where T : class, new()
     {
         void Update(Action<T> applyChanges);
     }

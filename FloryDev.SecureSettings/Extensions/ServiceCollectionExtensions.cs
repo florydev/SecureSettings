@@ -13,13 +13,13 @@ namespace FloryDev.SecureSettings.Extensions
     public static class ServiceCollectionExtensions
     {
         public const string DEFAULT_SETTINGS_FILE = "appsettings.json";
-        public static void ConfigureWritable<T>(
+        public static void ConfigureSecured<T>(
         this IServiceCollection services,
         IConfigurationSection section,
         string file = DEFAULT_SETTINGS_FILE) where T : class, new()
         {
             services.Configure<T>(section); // Fix: Use section.Bind to convert IConfigurationSection to Action<T>
-            services.AddTransient<IWritableOptions<T>>(provider =>
+            services.AddTransient<ISecuredOptions<T>>(provider =>
             {
                 var configuration = (IConfigurationRoot)provider.GetService<IConfiguration>();
                 var environment = provider.GetService<IHostEnvironment>();

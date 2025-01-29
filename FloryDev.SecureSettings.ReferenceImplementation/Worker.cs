@@ -8,7 +8,7 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         private readonly ILogger<Worker> _logger;
         public AppSettings Settings;
 
-        public Worker(ILogger<Worker> logger, SecureSettingsManager secureSettingsManager, IWritableOptions<AppSettings> settings)
+        public Worker(ILogger<Worker> logger, SecureSettingsManager secureSettingsManager, ISecuredOptions<AppSettings> settings)
         {
             _logger = logger;
             Settings = settings.Value;

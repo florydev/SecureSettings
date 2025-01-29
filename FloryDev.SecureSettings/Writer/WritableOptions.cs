@@ -15,7 +15,7 @@ namespace FloryDev.SecureSettings.Writer
 
     /// </summary>
 
-    public class WritableOptions<T> : IWritableOptions<T> where T : class, new()
+    public class WritableOptions<T> : ISecuredOptions<T> where T : class, new()
     {
         private readonly IHostEnvironment _environment;
         private readonly IOptionsMonitor<T> _options;
