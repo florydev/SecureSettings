@@ -8,13 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FloryDev.SecureSettings" Version="1.0.0" />
+    <PackageReference Include="FloryDev.SecureSettings.WindowsEncryption" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FloryDev.SecureSettings.WindowsEncryption\FloryDev.SecureSettings.WindowsEncryption.csproj" />
-    <ProjectReference Include="..\FloryDev.SecureSettings\FloryDev.SecureSettings.csproj" />
   </ItemGroup>
 
   <ItemGroup>

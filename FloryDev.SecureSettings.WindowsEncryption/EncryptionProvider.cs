@@ -18,7 +18,7 @@ namespace FloryDev.SecureSettings.WindowsEncryption
         {
             var bytesCypherText = Convert.FromBase64String(encryptedString);
 
-            RSACryptoServiceProvider csp = GetProvderFromContainerKey(Settings.KeyContainerName);
+            RSACryptoServiceProvider csp = GetProviderFromContainerKey(Settings.KeyContainerName);
 
             //decrypt and strip pkcs#1.5 padding
             var bytesPlainTextData = csp.Decrypt(bytesCypherText, false);
@@ -33,7 +33,7 @@ namespace FloryDev.SecureSettings.WindowsEncryption
         {
             var plainTextBytes = System.Text.Encoding.Unicode.GetBytes(plainText);
 
-            RSACryptoServiceProvider csp = GetProvderFromContainerKey(Settings.KeyContainerName);
+            RSACryptoServiceProvider csp = GetProviderFromContainerKey(Settings.KeyContainerName);
 
             var encryptedBytes = csp.Encrypt(plainTextBytes, false);
             String cypherText = Convert.ToBase64String(encryptedBytes);
@@ -41,7 +41,7 @@ namespace FloryDev.SecureSettings.WindowsEncryption
             return cypherText;
         }
 
-        public static RSACryptoServiceProvider GetProvderFromContainerKey(string ContainerName)
+        public static RSACryptoServiceProvider GetProviderFromContainerKey(string ContainerName)
         {
             CspParameters cp = new()
             {

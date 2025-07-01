@@ -4,6 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>1.0.0</Version>
+    <Authors>Mark Flory</Authors>
+    <Company>FloryDev</Company>
+    <PackageId>FloryDev.SecureSettings</PackageId>
+    <Description>SecureSettings is a .NET library to encrypt settings values in a more natural way, where the values can be changed more simply, automatically encrypted (still working on this), and does not rely on explicitly stored keys.</Description>
+    <PackageTags>encryption;encrypt;secure;.NET;dotnet;csharp;netstandard;configuration;appsettings;config;settings</PackageTags>
+    <RepositoryUrl>https://github.com/florydev/SecureSettings</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

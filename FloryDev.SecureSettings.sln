@@ -5,9 +5,9 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings", "FloryDev.SecureSettings\FloryDev.SecureSettings.csproj", "{66685352-D2AF-40A0-8921-E323D692B76A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings.WindowsEncryption", "FloryDev.SecureSettings.WindowsEncryption\FloryDev.SecureSettings.WindowsEncryption.csproj", "{073B11BE-B03D-4D9B-BBB4-BF4BD54CD4F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings.ReferenceImplementation", "FloryDev.SecureSettings.ReferenceImplementation\FloryDev.SecureSettings.ReferenceImplementation.csproj", "{835B4046-F397-472E-9CD6-9D57F5B5E4B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings.ReferenceImplementation", "FloryDev.SecureSettings.ReferenceImplementation\FloryDev.SecureSettings.ReferenceImplementation.csproj", "{4D2C8A1E-2266-4373-86D5-5A64A46BE043}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings.WindowsEncryption", "FloryDev.SecureSettings.WindowsEncryption\FloryDev.SecureSettings.WindowsEncryption.csproj", "{368EEB70-0D32-4198-B307-791FC36C5343}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{66685352-D2AF-40A0-8921-E323D692B76A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66685352-D2AF-40A0-8921-E323D692B76A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66685352-D2AF-40A0-8921-E323D692B76A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{073B11BE-B03D-4D9B-BBB4-BF4BD54CD4F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{073B11BE-B03D-4D9B-BBB4-BF4BD54CD4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{073B11BE-B03D-4D9B-BBB4-BF4BD54CD4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{073B11BE-B03D-4D9B-BBB4-BF4BD54CD4F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D2C8A1E-2266-4373-86D5-5A64A46BE043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D2C8A1E-2266-4373-86D5-5A64A46BE043}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D2C8A1E-2266-4373-86D5-5A64A46BE043}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D2C8A1E-2266-4373-86D5-5A64A46BE043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835B4046-F397-472E-9CD6-9D57F5B5E4B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835B4046-F397-472E-9CD6-9D57F5B5E4B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835B4046-F397-472E-9CD6-9D57F5B5E4B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835B4046-F397-472E-9CD6-9D57F5B5E4B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{368EEB70-0D32-4198-B307-791FC36C5343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368EEB70-0D32-4198-B307-791FC36C5343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368EEB70-0D32-4198-B307-791FC36C5343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368EEB70-0D32-4198-B307-791FC36C5343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
