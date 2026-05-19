@@ -20,6 +20,8 @@ namespace FloryDev.SecureSettings
 
         private string _value = string.Empty;
 
+        public bool WasEncrypted { get; private set; }
+
         public string Value
         {
             get
@@ -32,6 +34,7 @@ namespace FloryDev.SecureSettings
                 if (!Decrypter.ValueIsEncrypted(value))
                 {
                     _value = Encrypter.EncryptString(value);
+                    WasEncrypted = true;
                 }
                 else
                 {

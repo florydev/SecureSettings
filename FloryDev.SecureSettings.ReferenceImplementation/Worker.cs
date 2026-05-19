@@ -17,13 +17,7 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
             _logger = logger;
             applicationContextFactory = contextFactory;
             Settings = settings.Value;
-            settings.Update(opt => {
-                opt = Settings;
-            });
             GraphSettings = graphSettings.Value;
-            graphSettings.Update(opt => {
-                opt = graphSettings.Value;
-            });
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

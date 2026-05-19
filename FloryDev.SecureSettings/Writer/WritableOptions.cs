@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace FloryDev.SecureSettings.Writer
 {
@@ -17,11 +18,17 @@ namespace FloryDev.SecureSettings.Writer
 
     public class WritableOptions<T> : ISecuredOptions<T> where T : class, new()
     {
+        private static readonly PropertyInfo[] _encryptedProperties =
+            typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                     .Where(p => p.PropertyType == typeof(EncryptedConfigSetting))
+                     .ToArray();
+
         private readonly IHostEnvironment _environment;
         private readonly IOptionsMonitor<T> _options;
         private readonly IConfigurationRoot _configuration;
         private readonly string _section;
         private readonly string _file;
+        private bool _autoFlushChecked;
 
         public WritableOptions(
             IHostEnvironment environment,
@@ -37,7 +44,22 @@ namespace FloryDev.SecureSettings.Writer
             _file = file;
         }
 
-        public T Value => _options.CurrentValue;
+        public T Value
+        {
+            get
+            {
+                if (!_autoFlushChecked)
+                {
+                    // Set the flag before calling Update to prevent re-entrance if Update falls back to Value
+                    _autoFlushChecked = true;
+                    var current = _options.CurrentValue;
+                    if (_encryptedProperties.Any(p => (p.GetValue(current) as EncryptedConfigSetting)?.WasEncrypted == true))
+                        Update(opt => { });
+                }
+                return _options.CurrentValue;
+            }
+        }
+
         public T Get(string name) => _options.Get(name);
 
         public void Update(Action<T> applyChanges)
