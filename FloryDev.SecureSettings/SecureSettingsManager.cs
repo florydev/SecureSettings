@@ -1,4 +1,5 @@
-﻿using FloryDev.SecureSettings.Interfaces;
+﻿using FloryDev.SecureSettings.Extensions;
+using FloryDev.SecureSettings.Interfaces;
 using FloryDev.SecureSettings.Writer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -20,6 +21,8 @@ namespace FloryDev.SecureSettings
             _decryptionService = decryptionService;
             EncryptedConfigSetting.Encrypter = encryptionService;
             EncryptedConfigSetting.Decrypter = decryptionService;
+            ConfigurationExtensions.Encrypter = encryptionService;
+            ConfigurationExtensions.Decrypter = decryptionService;
         }
     }
 }

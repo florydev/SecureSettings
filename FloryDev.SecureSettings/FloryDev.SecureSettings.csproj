@@ -11,6 +11,7 @@
     <Description>SecureSettings is a .NET library to encrypt settings values in a more natural way, where the values can be changed more simply, automatically encrypted (still working on this), and does not rely on explicitly stored keys.</Description>
     <PackageTags>encryption;encrypt;secure;.NET;dotnet;csharp;netstandard;configuration;appsettings;config;settings</PackageTags>
     <RepositoryUrl>https://github.com/florydev/SecureSettings</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <None Include="docs\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,11 @@
 ﻿using FloryDev.SecureSettings.Extensions;
 using FloryDev.SecureSettings.Interfaces;
+using FloryDev.SecureSettings.ReferenceImplementation.EntityFramework;
 using FloryDev.SecureSettings.WindowsEncryption;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.Versioning;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FloryDev.SecureSettings.ReferenceImplementation
 {
@@ -18,7 +16,6 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         {
             var builder = Host.CreateApplicationBuilder(args);
             builder.Services.Configure<WindowsEncryptionSettings>(builder.Configuration.GetSection(WindowsEncryptionSettings.SectionName));
-            
             //This is just an example of how you might determine when to use shadow settings
             if (Debugger.IsAttached)
             {
@@ -40,10 +37,12 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
                 builder.Services.ConfigureSecured<AppSettings>(builder.Configuration.GetSection(AppSettings.SectionName));
             }
 
+            builder.Services.ConfigureSecured<MicrosoftGraphSettings>(builder.Configuration.GetSection(MicrosoftGraphSettings.SectionName));
             builder.Services.AddSingleton<IEncryptionService, EncryptionProvider>();
             builder.Services.AddSingleton<IDecryptionService, EncryptionProvider>();
             builder.Services.AddSingleton<SecureSettingsManager>();
             builder.Services.AddHostedService<Worker>();
+            builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MainConnection")));
             var host = builder.Build();
             host.Run();
         }

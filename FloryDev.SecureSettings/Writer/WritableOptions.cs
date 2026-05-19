@@ -47,14 +47,43 @@ namespace FloryDev.SecureSettings.Writer
             var physicalPath = fileInfo.PhysicalPath;
 
             var jObject = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(physicalPath));
-            var sectionObject = jObject.TryGetValue(_section, out JToken section) ?
-                JsonConvert.DeserializeObject<T>(section.ToString()) : (Value ?? new T());
+            var segments = _section.Split(':');
+
+            var sectionObject = GetNestedToken(jObject, segments) is JToken token
+                ? JsonConvert.DeserializeObject<T>(token.ToString())
+                : (Value ?? new T());
 
             applyChanges(sectionObject);
 
-            jObject[_section] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
+            SetNestedToken(jObject, segments, JObject.Parse(JsonConvert.SerializeObject(sectionObject)));
             File.WriteAllText(physicalPath, JsonConvert.SerializeObject(jObject, Formatting.Indented));
             _configuration.Reload();
+        }
+
+        private static JToken? GetNestedToken(JObject root, string[] segments)
+        {
+            JToken current = root;
+            foreach (var segment in segments)
+            {
+                current = (current as JObject)?[segment];
+                if (current == null) return null;
+            }
+            return current;
+        }
+
+        private static void SetNestedToken(JObject root, string[] segments, JToken value)
+        {
+            JObject current = root;
+            for (int i = 0; i < segments.Length - 1; i++)
+            {
+                if (current[segments[i]] is not JObject child)
+                {
+                    child = new JObject();
+                    current[segments[i]] = child;
+                }
+                current = child;
+            }
+            current[segments[^1]] = value;
         }
     }
 }
