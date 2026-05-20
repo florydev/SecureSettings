@@ -1,12 +1,7 @@
-﻿using FloryDev.SecureSettings.Extensions;
+using FloryDev.SecureSettings.ConnectionStrings;
+using FloryDev.SecureSettings.Extensions;
 using FloryDev.SecureSettings.Interfaces;
-using FloryDev.SecureSettings.Writer;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace FloryDev.SecureSettings
 {
@@ -15,14 +10,17 @@ namespace FloryDev.SecureSettings
         private readonly IEncryptionService _encryptionService;
         private readonly IDecryptionService _decryptionService;
 
-        public SecureSettingsManager(IEncryptionService encryptionService, IDecryptionService decryptionService)
+        public SecureSettingsManager(IEncryptionService encryptionService, IDecryptionService decryptionService, IConfiguration configuration)
         {
             _encryptionService = encryptionService;
             _decryptionService = decryptionService;
             EncryptedConfigSetting.Encrypter = encryptionService;
             EncryptedConfigSetting.Decrypter = decryptionService;
-            ConfigurationExtensions.Encrypter = encryptionService;
-            ConfigurationExtensions.Decrypter = decryptionService;
+            Extensions.ConfigurationExtensions.Encrypter = encryptionService;
+            Extensions.ConfigurationExtensions.Decrypter = decryptionService;
+
+            SecureConnectionStringConfigurationProvider.EncryptAll();
+            ((IConfigurationRoot)configuration).Reload();
         }
     }
 }

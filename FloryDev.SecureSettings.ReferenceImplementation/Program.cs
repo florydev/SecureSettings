@@ -16,13 +16,23 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         {
             var builder = Host.CreateApplicationBuilder(args);
             builder.Services.Configure<WindowsEncryptionSettings>(builder.Configuration.GetSection(WindowsEncryptionSettings.SectionName));
+
+            //Always secure connection strings in appsettings.json, even in debug, so credentials
+            //don't sit in plain text in a shared file
+            builder.Configuration.SecureConnectionStrings();
+
             //This is just an example of how you might determine when to use shadow settings
             if (Debugger.IsAttached)
             {
                 //The purpose of this in the implementation is in a environment with a number of developers they can put the secured information
                 //in a shadow.json file that is not checked into source control. This way the developers can have their own settings, that
                 //are encypted, and not stepping over others.
-  
+
+                //Add shadow.json to the main configuration so its connection strings override appsettings.json,
+                //then secure those too so each developer's credentials are encrypted in their own file
+                builder.Configuration.AddJsonFile("shadow.json", optional: false);
+                builder.Configuration.SecureConnectionStrings("shadow.json");
+
                 //We first use a configuration builder to access the shadow file and then use that to bind that section to the Settings object
                 var shadowBuilder = new ConfigurationBuilder()
                     .AddJsonFile("shadow.json", optional: false);
@@ -33,7 +43,6 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
             }
             else
             {
-                //If we are not in development we just use the base appsettings.json file
                 builder.Services.ConfigureSecured<AppSettings>(builder.Configuration.GetSection(AppSettings.SectionName));
             }
 

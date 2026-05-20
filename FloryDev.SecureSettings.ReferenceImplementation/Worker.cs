@@ -32,9 +32,11 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
 
                 var password = Settings.Password.GetDecryptedValue();
                 var mailtoken = GraphSettings.ClientSecret.GetDecryptedValue();
+                String dbConnection = String.Empty;
 
                 using (var dbContext = applicationContextFactory.CreateDbContext())
                 {
+                    dbConnection = dbContext.Database.GetConnectionString();
                 }
 
                 await Task.Delay(1000, stoppingToken);

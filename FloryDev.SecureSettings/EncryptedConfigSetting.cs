@@ -31,9 +31,9 @@ namespace FloryDev.SecureSettings
 
             set
             {
-                if (!Decrypter.ValueIsEncrypted(value))
+                if (!SecureValueEncoding.IsEncrypted(value))
                 {
-                    _value = Encrypter.EncryptString(value);
+                    _value = SecureValueEncoding.Wrap(Encrypter.EncryptString(value));
                     WasEncrypted = true;
                 }
                 else
@@ -49,11 +49,8 @@ namespace FloryDev.SecureSettings
         public string GetDecryptedValue()
         {
             if (!string.IsNullOrEmpty(Value))
-            {
-                var unencryptedValue = Decrypter.DecryptString(Value);
-                return unencryptedValue;
-            }
-            return String.Empty;
+                return Decrypter.DecryptString(SecureValueEncoding.Unwrap(Value));
+            return string.Empty;
         }
     }
 }
