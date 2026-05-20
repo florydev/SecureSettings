@@ -1,7 +1,7 @@
-﻿using FloryDev.SecureSettings.Extensions;
+using FloryDev.SecureSettings.Dpapi;
+using FloryDev.SecureSettings.Extensions;
 using FloryDev.SecureSettings.Interfaces;
 using FloryDev.SecureSettings.ReferenceImplementation.EntityFramework;
-using FloryDev.SecureSettings.WindowsEncryption;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Runtime.Versioning;
@@ -15,7 +15,7 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         static void Main(string[] args)
         {
             var builder = Host.CreateApplicationBuilder(args);
-            builder.Services.Configure<WindowsEncryptionSettings>(builder.Configuration.GetSection(WindowsEncryptionSettings.SectionName));
+            builder.Services.Configure<DpapiEncryptionSettings>(builder.Configuration.GetSection(DpapiEncryptionSettings.SectionName));
 
             //Always secure connection strings in appsettings.json, even in debug, so credentials
             //don't sit in plain text in a shared file
@@ -47,8 +47,8 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
             }
 
             builder.Services.ConfigureSecured<MicrosoftGraphSettings>(builder.Configuration.GetSection(MicrosoftGraphSettings.SectionName));
-            builder.Services.AddSingleton<IEncryptionService, EncryptionProvider>();
-            builder.Services.AddSingleton<IDecryptionService, EncryptionProvider>();
+            builder.Services.AddSingleton<IEncryptionService, DpapiEncryptionProvider>();
+            builder.Services.AddSingleton<IDecryptionService, DpapiEncryptionProvider>();
             builder.Services.AddSingleton<SecureSettingsManager>();
             builder.Services.AddHostedService<Worker>();
             builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MainConnection")));

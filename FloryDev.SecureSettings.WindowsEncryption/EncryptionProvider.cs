@@ -1,4 +1,4 @@
-﻿using FloryDev.SecureSettings.Interfaces;
+using FloryDev.SecureSettings.Interfaces;
 using Microsoft.Extensions.Options;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
@@ -9,66 +9,34 @@ namespace FloryDev.SecureSettings.WindowsEncryption
     public class EncryptionProvider : IEncryptDecryptService
     {
         private WindowsEncryptionSettings Settings { get; set; }
+
         public EncryptionProvider(IOptions<WindowsEncryptionSettings> settings)
         {
             Settings = settings.Value;
         }
 
-        public string DecryptString(string encryptedString)
+        public string DecryptString(string base64)
         {
-            var bytesCypherText = Convert.FromBase64String(encryptedString);
-
-            RSACryptoServiceProvider csp = GetProviderFromContainerKey(Settings.KeyContainerName);
-
-            //decrypt and strip pkcs#1.5 padding
-            var bytesPlainTextData = csp.Decrypt(bytesCypherText, false);
-
-            //get our original plainText back...
-            String plainTextData = System.Text.Encoding.Unicode.GetString(bytesPlainTextData);
-
-            return plainTextData;
+            var cipherBytes = Convert.FromBase64String(base64);
+            var csp = GetProviderFromContainerKey(Settings.KeyContainerName);
+            var plainBytes = csp.Decrypt(cipherBytes, false);
+            return System.Text.Encoding.Unicode.GetString(plainBytes);
         }
 
         public string EncryptString(string plainText)
         {
-            var plainTextBytes = System.Text.Encoding.Unicode.GetBytes(plainText);
-
-            RSACryptoServiceProvider csp = GetProviderFromContainerKey(Settings.KeyContainerName);
-
-            var encryptedBytes = csp.Encrypt(plainTextBytes, false);
-            String cypherText = Convert.ToBase64String(encryptedBytes);
-
-            return cypherText;
+            var plainBytes = System.Text.Encoding.Unicode.GetBytes(plainText);
+            var csp = GetProviderFromContainerKey(Settings.KeyContainerName);
+            var cipherBytes = csp.Encrypt(plainBytes, false);
+            return Convert.ToBase64String(cipherBytes);
         }
 
-        public static RSACryptoServiceProvider GetProviderFromContainerKey(string ContainerName)
-        {
-            CspParameters cp = new()
-            {
-                KeyContainerName = ContainerName
-            };
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cp);
-            return rsa;
-        }
+        public bool ValueIsEncrypted(string value) => SecureValueEncoding.IsEncrypted(value);
 
-        /// <summary>
-        /// The intention of this method is to determine if a value is encrypted or not so that perhaps
-        /// we can provide a shortcut to determining that rather than decrypting the value. This implementation 
-        /// is not what I would consider a good implementation. It is a placeholder for a better implementation.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public bool ValueIsEncrypted(string value)
+        public static RSACryptoServiceProvider GetProviderFromContainerKey(string containerName)
         {
-            try
-            {
-                DecryptString(value);
-                return true;
-            }
-            catch(Exception ex)
-            {
-                return false;
-            }
+            var cp = new CspParameters { KeyContainerName = containerName };
+            return new RSACryptoServiceProvider(cp);
         }
     }
 }

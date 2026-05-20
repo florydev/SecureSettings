@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,13 +8,13 @@
     <Authors>Mark Flory</Authors>
     <Company>FloryDev</Company>
     <PackageId>FloryDev.SecureSettings.WindowsEncryption</PackageId>
-    <Description>This is an implementation of SecureSettings that uses the Windows Key Storage Provider</Description>
+    <Description>RSA implementation of SecureSettings using the Windows CryptoAPI key storage provider.</Description>
     <PackageTags>encryption;encrypt;secure;.NET;dotnet;csharp;netstandard;configuration;appsettings;config;settings</PackageTags>
     <RepositoryUrl>https://github.com/florydev/SecureSettings/tree/main/FloryDev.SecureSettings.WindowsEncryption</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FloryDev.SecureSettings" Version="1.0.0" />
+    <ProjectReference Include="..\FloryDev.SecureSettings\FloryDev.SecureSettings.csproj" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
   </ItemGroup>
 

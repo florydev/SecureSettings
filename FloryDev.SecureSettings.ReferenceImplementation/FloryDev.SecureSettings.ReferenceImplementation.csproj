@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FloryDev.SecureSettings.WindowsEncryption\FloryDev.SecureSettings.WindowsEncryption.csproj" />
+    <ProjectReference Include="..\FloryDev.SecureSettings.Dpapi\FloryDev.SecureSettings.Dpapi.csproj" />
     <ProjectReference Include="..\FloryDev.SecureSettings\FloryDev.SecureSettings.csproj" />
   </ItemGroup>
 
