@@ -398,4 +398,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/FloryDev.SecureSettings.ReferenceImplementation/shadow.json
+/FloryDev.SecureSettings.ReferenceImplementation/appsettings.local.json

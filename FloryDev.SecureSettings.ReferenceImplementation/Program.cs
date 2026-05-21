@@ -21,25 +21,21 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
             //don't sit in plain text in a shared file
             builder.Configuration.SecureConnectionStrings();
 
-            //This is just an example of how you might determine when to use shadow settings
+            //Each developer maintains their own appsettings.local.json (excluded from source control)
+            //so their encrypted credentials never interfere with the shared appsettings.json.
             if (Debugger.IsAttached)
             {
-                //The purpose of this in the implementation is in a environment with a number of developers they can put the secured information
-                //in a shadow.json file that is not checked into source control. This way the developers can have their own settings, that
-                //are encypted, and not stepping over others.
+                //Add appsettings.local.json to the main configuration so its values override appsettings.json,
+                //then secure its connection strings so each developer's credentials are encrypted in their own file
+                builder.Configuration.AddJsonFile("appsettings.local.json", optional: false);
+                builder.Configuration.SecureConnectionStrings("appsettings.local.json");
 
-                //Add shadow.json to the main configuration so its connection strings override appsettings.json,
-                //then secure those too so each developer's credentials are encrypted in their own file
-                builder.Configuration.AddJsonFile("shadow.json", optional: false);
-                builder.Configuration.SecureConnectionStrings("shadow.json");
-
-                //We first use a configuration builder to access the shadow file and then use that to bind that section to the Settings object
-                var shadowBuilder = new ConfigurationBuilder()
-                    .AddJsonFile("shadow.json", optional: false);
-                var shadow = shadowBuilder.Build();
-                builder.Services.ConfigureSecured<AppSettings>(shadow.GetSection(AppSettings.SectionName), "shadow.json");
-                //This reference example use a companion class to serialize to that matches the full appsettings file but you could just use
-                //a class specific for just secured values
+                //Use a separate configuration builder to bind AppSettings so write-back targets
+                //appsettings.local.json rather than the shared appsettings.json
+                var localBuilder = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.local.json", optional: false);
+                var local = localBuilder.Build();
+                builder.Services.ConfigureSecured<AppSettings>(local.GetSection(AppSettings.SectionName), "appsettings.local.json");
             }
             else
             {
