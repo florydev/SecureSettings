@@ -18,7 +18,8 @@ namespace FloryDev.SecureSettings.Extensions
         IConfigurationSection section,
         string file = DEFAULT_SETTINGS_FILE) where T : class, new()
         {
-            services.Configure<T>(section); // Fix: Use section.Bind to convert IConfigurationSection to Action<T>
+            services.Configure<T>(section);
+            SecureSettingsFileScanner.Register(section.Path, typeof(T));
             services.AddTransient<ISecuredOptions<T>>(provider =>
             {
                 var configuration = (IConfigurationRoot)provider.GetService<IConfiguration>();

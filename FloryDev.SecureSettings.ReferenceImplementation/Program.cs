@@ -25,10 +25,9 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
             //so their encrypted credentials never interfere with the shared appsettings.json.
             if (Debugger.IsAttached)
             {
-                //Add appsettings.local.json to the main configuration so its values override appsettings.json,
-                //then secure its connection strings so each developer's credentials are encrypted in their own file
+                //Add appsettings.local.json so its values override appsettings.json.
+                //Connection strings are already covered by the SecureConnectionStrings() scan above.
                 builder.Configuration.AddJsonFile("appsettings.local.json", optional: false);
-                builder.Configuration.SecureConnectionStrings("appsettings.local.json");
 
                 //Use a separate configuration builder to bind AppSettings so write-back targets
                 //appsettings.local.json rather than the shared appsettings.json

@@ -1,7 +1,7 @@
 using FloryDev.SecureSettings.ConnectionStrings;
-using FloryDev.SecureSettings.Extensions;
 using FloryDev.SecureSettings.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace FloryDev.SecureSettings
 {
@@ -10,7 +10,7 @@ namespace FloryDev.SecureSettings
         private readonly IEncryptionService _encryptionService;
         private readonly IDecryptionService _decryptionService;
 
-        public SecureSettingsManager(IEncryptionService encryptionService, IDecryptionService decryptionService, IConfiguration configuration)
+        public SecureSettingsManager(IEncryptionService encryptionService, IDecryptionService decryptionService, IConfiguration configuration, IHostEnvironment environment)
         {
             _encryptionService = encryptionService;
             _decryptionService = decryptionService;
@@ -20,6 +20,7 @@ namespace FloryDev.SecureSettings
             Extensions.ConfigurationExtensions.Decrypter = decryptionService;
 
             SecureConnectionStringConfigurationProvider.EncryptAll();
+            SecureSettingsFileScanner.EncryptInDirectory(environment.ContentRootPath);
             ((IConfigurationRoot)configuration).Reload();
         }
     }
