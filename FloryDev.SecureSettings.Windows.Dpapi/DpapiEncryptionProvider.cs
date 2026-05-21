@@ -4,7 +4,7 @@ using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FloryDev.SecureSettings.Dpapi
+namespace FloryDev.SecureSettings.Windows.Dpapi
 {
     [SupportedOSPlatform("windows")]
     public class DpapiEncryptionProvider : IEncryptDecryptService

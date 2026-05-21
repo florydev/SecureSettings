@@ -7,10 +7,10 @@
     <Version>1.0.0</Version>
     <Authors>Mark Flory</Authors>
     <Company>FloryDev</Company>
-    <PackageId>FloryDev.SecureSettings.WindowsEncryption</PackageId>
-    <Description>RSA implementation of SecureSettings using the Windows CryptoAPI key storage provider.</Description>
-    <PackageTags>encryption;encrypt;secure;.NET;dotnet;csharp;netstandard;configuration;appsettings;config;settings</PackageTags>
-    <RepositoryUrl>https://github.com/florydev/SecureSettings/tree/main/FloryDev.SecureSettings.WindowsEncryption</RepositoryUrl>
+    <PackageId>FloryDev.SecureSettings.Windows.Rsa</PackageId>
+    <Description>RSA implementation of SecureSettings using the Windows CNG Key Storage Provider. Keys are stored non-exportable in the Windows KSP with OAEP-SHA256 padding.</Description>
+    <PackageTags>encryption;rsa;cng;windows;secure;.NET;dotnet;configuration;appsettings;config;settings</PackageTags>
+    <RepositoryUrl>https://github.com/florydev/SecureSettings/tree/main/FloryDev.SecureSettings.Windows.Rsa</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

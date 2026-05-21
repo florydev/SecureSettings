@@ -1,4 +1,4 @@
-using FloryDev.SecureSettings.Dpapi;
+using FloryDev.SecureSettings.Windows.Dpapi;
 using FloryDev.SecureSettings.Extensions;
 using FloryDev.SecureSettings.Interfaces;
 using FloryDev.SecureSettings.ReferenceImplementation.EntityFramework;

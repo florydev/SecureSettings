@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace FloryDev.SecureSettings.Dpapi
+namespace FloryDev.SecureSettings.Windows.Dpapi
 {
     public class DpapiEncryptionSettings
     {

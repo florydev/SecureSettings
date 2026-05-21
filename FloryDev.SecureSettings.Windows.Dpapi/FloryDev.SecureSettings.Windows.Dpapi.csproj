@@ -7,10 +7,10 @@
     <Version>1.0.0</Version>
     <Authors>Mark Flory</Authors>
     <Company>FloryDev</Company>
-    <PackageId>FloryDev.SecureSettings.Dpapi</PackageId>
+    <PackageId>FloryDev.SecureSettings.Windows.Dpapi</PackageId>
     <Description>Windows DPAPI implementation of SecureSettings. Keys are derived from Windows user or machine credentials — no key management required.</Description>
     <PackageTags>encryption;dpapi;windows;secure;.NET;dotnet;configuration;appsettings;config;settings</PackageTags>
-    <RepositoryUrl>https://github.com/florydev/SecureSettings/tree/main/FloryDev.SecureSettings.Dpapi</RepositoryUrl>
+    <RepositoryUrl>https://github.com/florydev/SecureSettings/tree/main/FloryDev.SecureSettings.Windows.Dpapi</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
