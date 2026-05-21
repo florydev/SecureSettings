@@ -24,12 +24,12 @@ namespace FloryDev.SecureSettings.Windows.Rsa
             return Convert.ToBase64String(securedBytes);
         }
 
-        public string Unsecure(string securedValue)
+        public Task<string> UnsecureAsync(string securedValue)
         {
             using var rsa = OpenOrCreateKey();
             var securedBytes = Convert.FromBase64String(securedValue);
             var plainBytes = rsa.Decrypt(securedBytes, RSAEncryptionPadding.OaepSHA256);
-            return Encoding.Unicode.GetString(plainBytes);
+            return Task.FromResult(Encoding.Unicode.GetString(plainBytes));
         }
 
         public bool IsSecured(string value) => SecureValueEncoding.IsSecured(value);

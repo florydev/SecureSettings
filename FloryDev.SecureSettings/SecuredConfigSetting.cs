@@ -32,11 +32,15 @@ namespace FloryDev.SecureSettings
 
         public static implicit operator string(SecuredConfigSetting s) => s.Value;
 
-        /// <summary>Returns the original plain-text value. Call only when the value is needed — avoids holding the unsecured form in memory.</summary>
-        public string GetUnsecuredValue()
+        /// <summary>
+        /// Returns the original plain-text value. Always async — implementations backed by
+        /// remote stores (e.g. Key Vault) require I/O; local implementations return immediately.
+        /// Call only when the value is actively needed to avoid holding it in memory.
+        /// </summary>
+        public async Task<string> GetUnsecuredValueAsync()
         {
             if (!string.IsNullOrEmpty(Value))
-                return Unsecurer.Unsecure(SecureValueEncoding.Unwrap(Value));
+                return await Unsecurer.UnsecureAsync(SecureValueEncoding.Unwrap(Value));
             return string.Empty;
         }
     }

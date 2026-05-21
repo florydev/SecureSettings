@@ -23,11 +23,11 @@ namespace FloryDev.SecureSettings.Windows.Dpapi
             return Convert.ToBase64String(securedBytes);
         }
 
-        public string Unsecure(string securedValue)
+        public Task<string> UnsecureAsync(string securedValue)
         {
             var securedBytes = Convert.FromBase64String(securedValue);
             var plainBytes = ProtectedData.Unprotect(securedBytes, null, _scope);
-            return Encoding.Unicode.GetString(plainBytes);
+            return Task.FromResult(Encoding.Unicode.GetString(plainBytes));
         }
 
         public bool IsSecured(string value) => SecureValueEncoding.IsSecured(value);

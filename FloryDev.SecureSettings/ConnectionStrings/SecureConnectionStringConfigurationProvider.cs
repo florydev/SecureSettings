@@ -45,6 +45,9 @@ namespace FloryDev.SecureSettings.ConnectionStrings
             if (SecuredConfigSetting.Unsecurer == null)
                 return true;
 
+            // IConfigurationProvider.TryGet is a sync interface boundary.
+            // DPAPI and RSA complete synchronously (Task.FromResult). A Key Vault
+            // provider should cache values on startup so this call is also immediate.
             value = Unsecure(value!);
             return true;
         }
@@ -104,8 +107,11 @@ namespace FloryDev.SecureSettings.ConnectionStrings
             {
                 if (isSensitive && SecureConnectionStringParser.IsSecuredValue(v))
                 {
-                    var plain = SecuredConfigSetting.Unsecurer.Unsecure(
-                        SecureConnectionStringParser.Unwrap(v));
+                    // Sync-over-async: acceptable here because IConfigurationProvider.TryGet
+                    // is a sync boundary and all current providers complete immediately.
+                    var plain = SecuredConfigSetting.Unsecurer
+                        .UnsecureAsync(SecureConnectionStringParser.Unwrap(v))
+                        .GetAwaiter().GetResult();
                     result.Add((k, plain, true));
                 }
                 else

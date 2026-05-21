@@ -27,8 +27,8 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
                 if (_logger.IsEnabled(LogLevel.Information))
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-                var password = Settings.Password.GetUnsecuredValue();
-                var mailtoken = GraphSettings.ClientSecret.GetUnsecuredValue();
+                var password = await Settings.Password.GetUnsecuredValueAsync();
+                var mailtoken = await GraphSettings.ClientSecret.GetUnsecuredValueAsync();
 
                 using (var dbContext = applicationContextFactory.CreateDbContext())
                 {
