@@ -24,19 +24,15 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-               
                 if (_logger.IsEnabled(LogLevel.Information))
-                {
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                }
 
-                var password = Settings.Password.GetDecryptedValue();
-                var mailtoken = GraphSettings.ClientSecret.GetDecryptedValue();
-                String dbConnection = String.Empty;
+                var password = Settings.Password.GetUnsecuredValue();
+                var mailtoken = GraphSettings.ClientSecret.GetUnsecuredValue();
 
                 using (var dbContext = applicationContextFactory.CreateDbContext())
                 {
-                    dbConnection = dbContext.Database.GetConnectionString();
+                    var dbConnection = dbContext.Database.GetConnectionString();
                 }
 
                 await Task.Delay(1000, stoppingToken);

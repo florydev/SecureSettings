@@ -42,22 +42,21 @@ namespace FloryDev.SecureSettings.ConnectionStrings
             if (!key.StartsWith(Section + ConfigurationPath.KeyDelimiter, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            if (EncryptedConfigSetting.Decrypter == null)
+            if (SecuredConfigSetting.Unsecurer == null)
                 return true;
 
-            value = Decrypt(value!);
+            value = Unsecure(value!);
             return true;
         }
 
-        // Called by SecureSettingsManager after encryption services are ready.
-        // Encrypts any plain-text sensitive values in the file for all registered providers.
+        // Called by SecureSettingsManager after security services are ready.
         public static void EncryptAll()
         {
             foreach (var provider in _allProviders)
-                provider.EncryptFile();
+                provider.SecureFile();
         }
 
-        private void EncryptFile()
+        private void SecureFile()
         {
             if (!File.Exists(_physicalPath)) return;
 
@@ -73,10 +72,10 @@ namespace FloryDev.SecureSettings.ConnectionStrings
 
                 foreach (var (k, v, isSensitive) in parts)
                 {
-                    if (isSensitive && !SecureConnectionStringParser.IsEncryptedValue(v))
+                    if (isSensitive && !SecureConnectionStringParser.IsSecuredValue(v))
                     {
-                        var encrypted = EncryptedConfigSetting.Encrypter.EncryptString(v);
-                        forFile.Add((k, SecureConnectionStringParser.Wrap(encrypted), true));
+                        var secured = SecuredConfigSetting.Securer.Secure(v);
+                        forFile.Add((k, SecureConnectionStringParser.Wrap(secured), true));
                         needsUpdate = true;
                     }
                     else
@@ -96,18 +95,18 @@ namespace FloryDev.SecureSettings.ConnectionStrings
                 File.WriteAllText(_physicalPath, JsonConvert.SerializeObject(jObject, Formatting.Indented));
         }
 
-        private static string Decrypt(string raw)
+        private static string Unsecure(string raw)
         {
             var parts = SecureConnectionStringParser.Parse(raw);
             var result = new List<(string Key, string Value, bool IsSensitive)>(parts.Count);
 
             foreach (var (k, v, isSensitive) in parts)
             {
-                if (isSensitive && SecureConnectionStringParser.IsEncryptedValue(v))
+                if (isSensitive && SecureConnectionStringParser.IsSecuredValue(v))
                 {
-                    var decrypted = EncryptedConfigSetting.Decrypter.DecryptString(
+                    var plain = SecuredConfigSetting.Unsecurer.Unsecure(
                         SecureConnectionStringParser.Unwrap(v));
-                    result.Add((k, decrypted, true));
+                    result.Add((k, plain, true));
                 }
                 else
                 {

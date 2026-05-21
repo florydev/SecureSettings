@@ -7,17 +7,17 @@ namespace FloryDev.SecureSettings
 {
     public class SecureSettingsManager
     {
-        private readonly IEncryptionService _encryptionService;
-        private readonly IDecryptionService _decryptionService;
+        private readonly ISecureService _secureService;
+        private readonly IUnsecureService _unsecureService;
 
-        public SecureSettingsManager(IEncryptionService encryptionService, IDecryptionService decryptionService, IConfiguration configuration, IHostEnvironment environment)
+        public SecureSettingsManager(ISecureService secureService, IUnsecureService unsecureService, IConfiguration configuration, IHostEnvironment environment)
         {
-            _encryptionService = encryptionService;
-            _decryptionService = decryptionService;
-            EncryptedConfigSetting.Encrypter = encryptionService;
-            EncryptedConfigSetting.Decrypter = decryptionService;
-            Extensions.ConfigurationExtensions.Encrypter = encryptionService;
-            Extensions.ConfigurationExtensions.Decrypter = decryptionService;
+            _secureService = secureService;
+            _unsecureService = unsecureService;
+            SecuredConfigSetting.Securer = secureService;
+            SecuredConfigSetting.Unsecurer = unsecureService;
+            Extensions.ConfigurationExtensions.Securer = secureService;
+            Extensions.ConfigurationExtensions.Unsecurer = unsecureService;
 
             SecureConnectionStringConfigurationProvider.EncryptAll();
             SecureSettingsFileScanner.EncryptInDirectory(environment.ContentRootPath);

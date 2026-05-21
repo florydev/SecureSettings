@@ -9,7 +9,7 @@ namespace FloryDev.SecureSettings.ConnectionStrings
 
         public static bool IsSensitiveKey(string key) => SensitiveKeys.Contains(key.Trim());
 
-        public static bool IsEncryptedValue(string value) => SecureValueEncoding.IsEncrypted(value);
+        public static bool IsSecuredValue(string value) => SecureValueEncoding.IsSecured(value);
 
         public static string Wrap(string base64) => SecureValueEncoding.Wrap(base64);
 

@@ -6,14 +6,14 @@ namespace FloryDev.SecureSettings
 {
     internal static class SecureSettingsFileScanner
     {
-        private record SectionRegistration(string SectionPath, PropertyInfo[] EncryptedProperties);
+        private record SectionRegistration(string SectionPath, PropertyInfo[] SecuredProperties);
         private static readonly List<SectionRegistration> _registrations = new();
 
         internal static void Register(string sectionPath, Type settingsType)
         {
             var props = settingsType
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.PropertyType == typeof(EncryptedConfigSetting))
+                .Where(p => p.PropertyType == typeof(SecuredConfigSetting))
                 .ToArray();
 
             if (props.Length > 0)
@@ -39,17 +39,17 @@ namespace FloryDev.SecureSettings
                 var section = NavigateTo(jObject, reg.SectionPath.Split(':'));
                 if (section == null) continue;
 
-                foreach (var prop in reg.EncryptedProperties)
+                foreach (var prop in reg.SecuredProperties)
                 {
                     var match = section.Properties()
                         .FirstOrDefault(p => string.Equals(p.Name, prop.Name, StringComparison.OrdinalIgnoreCase));
                     if (match == null) continue;
 
                     var value = match.Value.ToString();
-                    if (string.IsNullOrEmpty(value) || SecureValueEncoding.IsEncrypted(value)) continue;
+                    if (string.IsNullOrEmpty(value) || SecureValueEncoding.IsSecured(value)) continue;
 
                     section[match.Name] = SecureValueEncoding.Wrap(
-                        EncryptedConfigSetting.Encrypter.EncryptString(value));
+                        SecuredConfigSetting.Securer.Secure(value));
                     changed = true;
                 }
             }

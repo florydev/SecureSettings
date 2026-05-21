@@ -15,14 +15,13 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
         static void Main(string[] args)
         {
             var builder = Host.CreateApplicationBuilder(args);
-            builder.Services.Configure<DpapiEncryptionSettings>(builder.Configuration.GetSection(DpapiEncryptionSettings.SectionName));
+            builder.Services.Configure<DpapiSecuritySettings>(builder.Configuration.GetSection(DpapiSecuritySettings.SectionName));
 
-            //Always secure connection strings in appsettings.json, even in debug, so credentials
-            //don't sit in plain text in a shared file
+            //Scan all appsettings*.json files so connection strings are secured in every variant
             builder.Configuration.SecureConnectionStrings();
 
             //Each developer maintains their own appsettings.local.json (excluded from source control)
-            //so their encrypted credentials never interfere with the shared appsettings.json.
+            //so their secured credentials never interfere with the shared appsettings.json.
             if (Debugger.IsAttached)
             {
                 //Add appsettings.local.json so its values override appsettings.json.
@@ -42,8 +41,8 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
             }
 
             builder.Services.ConfigureSecured<MicrosoftGraphSettings>(builder.Configuration.GetSection(MicrosoftGraphSettings.SectionName));
-            builder.Services.AddSingleton<IEncryptionService, DpapiEncryptionProvider>();
-            builder.Services.AddSingleton<IDecryptionService, DpapiEncryptionProvider>();
+            builder.Services.AddSingleton<ISecureService, DpapiSecurityProvider>();
+            builder.Services.AddSingleton<IUnsecureService, DpapiSecurityProvider>();
             builder.Services.AddSingleton<SecureSettingsManager>();
             builder.Services.AddHostedService<Worker>();
             builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MainConnection")));

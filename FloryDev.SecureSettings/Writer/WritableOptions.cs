@@ -1,4 +1,4 @@
-﻿using FloryDev.SecureSettings.Interfaces;
+using FloryDev.SecureSettings.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -8,19 +8,11 @@ using System.Reflection;
 
 namespace FloryDev.SecureSettings.Writer
 {
-    /// <summary>
-    /// This adds a different type of Option pattern to the system to allow it ot be writable back to the file/section where the options 
-    /// comes from.    
-    /// This code was taken and then updated from this post here: https://learn.microsoft.com/en-us/answers/questions/609232/how-to-save-the-updates-i-made-to-appsettings-conf
-    /// </summary>
-
-    /// </summary>
-
     public class WritableOptions<T> : ISecuredOptions<T> where T : class, new()
     {
-        private static readonly PropertyInfo[] _encryptedProperties =
+        private static readonly PropertyInfo[] _securedProperties =
             typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                     .Where(p => p.PropertyType == typeof(EncryptedConfigSetting))
+                     .Where(p => p.PropertyType == typeof(SecuredConfigSetting))
                      .ToArray();
 
         private readonly IHostEnvironment _environment;
@@ -50,10 +42,10 @@ namespace FloryDev.SecureSettings.Writer
             {
                 if (!_autoFlushChecked)
                 {
-                    // Set the flag before calling Update to prevent re-entrance if Update falls back to Value
+                    // Set flag before calling Update to prevent re-entrance if Update falls back to Value
                     _autoFlushChecked = true;
                     var current = _options.CurrentValue;
-                    if (_encryptedProperties.Any(p => (p.GetValue(current) as EncryptedConfigSetting)?.WasEncrypted == true))
+                    if (_securedProperties.Any(p => (p.GetValue(current) as SecuredConfigSetting)?.WasSecured == true))
                         Update(opt => { });
                 }
                 return _options.CurrentValue;
