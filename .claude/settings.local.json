@@ -4,7 +4,12 @@
       "Bash(dotnet build *)",
       "Bash(Select-String -Pattern \"error|Error|warning CS\")",
       "Bash(Select-Object -First 30)",
-      "PowerShell([System.Guid]::NewGuid\\(\\).ToString\\(\"B\"\\).ToUpper\\(\\); [System.Guid]::NewGuid\\(\\).ToString\\(\"B\"\\).ToUpper\\(\\))"
+      "PowerShell([System.Guid]::NewGuid\\(\\).ToString\\(\"B\"\\).ToUpper\\(\\); [System.Guid]::NewGuid\\(\\).ToString\\(\"B\"\\).ToUpper\\(\\))",
+      "Bash(git *)",
+      "Bash(dotnet tool *)",
+      "Bash(findstr /i ef)",
+      "Bash(dotnet ef *)",
+      "Bash(dir appsettings*.json /b)"
     ]
   }
 }

@@ -45,7 +45,15 @@ namespace FloryDev.SecureSettings.ReferenceImplementation
             builder.Services.AddSingleton<IUnsecureService, DpapiSecurityProvider>();
             builder.Services.AddSingleton<SecureSettingsManager>();
             builder.Services.AddHostedService<Worker>();
-            builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MainConnection")));
+            builder.Services.AddDbContextFactory<ApplicationDbContext>((sp, options) =>
+            {
+                // Resolving SecureSettingsManager wires up SecuredConfigSetting's static
+                // Securer/Unsecurer. It must happen before GetConnectionString() is called,
+                // otherwise the connection string still has the encrypted user id/password
+                // blobs in it (this is also what dotnet ef hits when it builds the context).
+                sp.GetRequiredService<SecureSettingsManager>();
+                options.UseSqlServer(sp.GetRequiredService<IConfiguration>().GetConnectionString("MainConnection"));
+            });
             var host = builder.Build();
             host.Run();
         }
