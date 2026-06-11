@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings.Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings.Windows.Dpapi", "FloryDev.SecureSettings.Windows.Dpapi\FloryDev.SecureSettings.Windows.Dpapi.csproj", "{21EE739D-F1AE-4D81-9B10-F7F9CE080F32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings.Azure.KeyVault", "FloryDev.SecureSettings.Azure.KeyVault\FloryDev.SecureSettings.Azure.KeyVault.csproj", "{467C5A64-22A3-43C3-A2DE-24E930680E0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloryDev.SecureSettings.ReferenceImplementation.AzureKeyVault", "FloryDev.SecureSettings.ReferenceImplementation.AzureKeyVault\FloryDev.SecureSettings.ReferenceImplementation.AzureKeyVault.csproj", "{0860E18D-8626-4EDE-80DC-0ECDA0C0AE05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{21EE739D-F1AE-4D81-9B10-F7F9CE080F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21EE739D-F1AE-4D81-9B10-F7F9CE080F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21EE739D-F1AE-4D81-9B10-F7F9CE080F32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{467C5A64-22A3-43C3-A2DE-24E930680E0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{467C5A64-22A3-43C3-A2DE-24E930680E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{467C5A64-22A3-43C3-A2DE-24E930680E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{467C5A64-22A3-43C3-A2DE-24E930680E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0860E18D-8626-4EDE-80DC-0ECDA0C0AE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0860E18D-8626-4EDE-80DC-0ECDA0C0AE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0860E18D-8626-4EDE-80DC-0ECDA0C0AE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0860E18D-8626-4EDE-80DC-0ECDA0C0AE05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

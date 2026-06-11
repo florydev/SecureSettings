@@ -3,7 +3,8 @@
     "allow": [
       "Bash(dotnet build *)",
       "Bash(Select-String -Pattern \"error|Error|warning CS\")",
-      "Bash(Select-Object -First 30)"
+      "Bash(Select-Object -First 30)",
+      "PowerShell([System.Guid]::NewGuid\\(\\).ToString\\(\"B\"\\).ToUpper\\(\\); [System.Guid]::NewGuid\\(\\).ToString\\(\"B\"\\).ToUpper\\(\\))"
     ]
   }
 }

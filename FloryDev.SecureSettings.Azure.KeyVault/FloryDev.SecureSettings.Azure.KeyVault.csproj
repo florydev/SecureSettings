@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>1.0.0</Version>
+    <Authors>Mark Flory</Authors>
+    <Company>FloryDev</Company>
+    <PackageId>FloryDev.SecureSettings.Azure.KeyVault</PackageId>
+    <Description>Azure Key Vault read-only IUnsecureService implementation for SecureSettings. Resolves secrets from Key Vault using DefaultAzureCredential or a caller-supplied TokenCredential. Never writes to Key Vault — secret provisioning is an explicit deployment concern.</Description>
+    <PackageTags>azure;keyvault;secure;.NET;dotnet;configuration;appsettings;settings</PackageTags>
+    <RepositoryUrl>https://github.com/florydev/SecureSettings/tree/main/FloryDev.SecureSettings.Azure.KeyVault</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FloryDev.SecureSettings\FloryDev.SecureSettings.csproj" />
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
+    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+  </ItemGroup>
+
+</Project>
